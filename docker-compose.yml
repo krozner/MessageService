@@ -1,0 +1,48 @@
+app:
+  tty: true
+  build: docker/app
+  container_name: "message-service-app"
+  links:
+    - database_dev
+    - database_test
+#    - rabbit
+  volumes:
+    - .:/var/www/app
+  ports:
+    - 8000:8000
+
+database_dev:
+  build: docker/database
+  container_name: "message-service-database-dev"
+  environment:
+    - POSTGRES_USER=MessageService
+    - POSTGRES_PASSWORD=MessageService
+    - POSTGRES_DB=MessageService
+  ports:
+    - 8001:5432
+
+database_test:
+  build: docker/database
+  container_name: "message-service-database-test"
+  environment:
+    - POSTGRES_USER=MessageService
+    - POSTGRES_PASSWORD=MessageService
+    - POSTGRES_DB=MessageService
+  ports:
+    - 8002:5432
+
+#rabbit:
+#  build: docker/rabbit
+#  hostname: "rabbit_mailing"
+#  environment:
+#    #RABBITMQ_ERLANG_COOKIE: "SWQOKODSQALRPCLNMEQG"
+#    RABBITMQ_DEFAULT_USER: "rabbitmq"
+#    RABBITMQ_DEFAULT_PASS: "rabbitmq"
+#    RABBITMQ_DEFAULT_VHOST: "/"
+#  ports:
+#    - 15672:15672
+#    - 5672:5672
+#  labels:
+#    NAME: "rabbit"
+#  volumes:
+#    - ./docker/rabbit/enabled_plugins:/etc/rabbitmq/enabled_plugins

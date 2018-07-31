@@ -1,0 +1,38 @@
+<style>
+
+</style>
+<div class="block">
+    <h4>API access</h4>
+    <div>
+        <div>
+            Access is based on Token authentication - each endpoint request requires a valid secret token (defined in
+            .env)
+        </div>
+        Request header example: <code>Authorization: Token xt7IwyVyh7Gl2vjpE1zutXij1dJl69J5</code> <br>
+    </div>
+    <div>
+        <code>API_AUTH_CLIENT</code> &rarr; action endpoints access token
+    </div>
+    <div>
+        <code>API_AUTH_USER</code> &rarr; CRUD endpoints access token
+    </div>
+</div>
+<div class="block">
+    <h4>General architecture</h4>
+    <div>
+        <img src="data:image/png;base64, <%= diagram %>"/>
+    </div>
+</div>
+
+<div class="block">
+    <h4>Message status (queue)</h4>
+    <div>
+        <ul>
+            <li><code>Stored = 1</code> &rarr; Stored in queue (waiting for send)</li>
+            <li><code>Processing = 2</code> &rarr; Sending is in progress</li>
+            <li><code>Sent = 3</code> &rarr; Message send successfully</li>
+            <li><code>SentError = 4</code> &rarr; Error during message sending</li>
+            <li><code>QueueError = 5</code> &rarr; Error during creating message queue</li>
+        </ul>
+    </div>
+</div>
